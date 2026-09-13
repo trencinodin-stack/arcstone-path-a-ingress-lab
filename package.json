@@ -13,6 +13,7 @@
     "demo:provenance": "npm run bridge:build && node src/provenance-demo.mjs",
     "demo:fuzz": "npm run bridge:build && node src/fuzz-demo.mjs",
     "eval:stdin": "npm run bridge:build && node src/stdin-once.mjs",
+    "evidence:live-producer": "npm run bridge:build && node src/run-live-producer.mjs",
     "verify": "npm run core:test && npm test && npm run matrix && npm run demo:provenance && npm run demo:fuzz"
   },
   "engines": {
