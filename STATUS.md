@@ -136,7 +136,7 @@ rustc:   1.98.1 (48a229cea 2026-09-01)
 cargo:   1.98.1 (797e8a9bc 2026-08-05)
 ```
 
-The baseline was subsequently pushed to the private GitHub repository and independently verified by the repository's GitHub Actions workflow.
+The baseline was subsequently pushed to the GitHub repository, which was private at the time, and independently verified by the repository's GitHub Actions workflow.
 
 ## Architectural status
 
