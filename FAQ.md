@@ -6,7 +6,7 @@
 
 `arcstone-path-a-ingress-lab` is an independent downstream experimental repository for testing how external producers can invoke the public Arcstone Path A predicate without modifying the Arcstone Continuity Core.
 
-It is an experimental ingress realization and evidence harness.
+It is an experimental ingress realization and evidence harness. It does not define new Arcstone architecture or establish upstream authority.
 
 ### Why does this repository exist?
 
@@ -42,6 +42,14 @@ They have separate repositories, histories, releases, CI, evidence, and developm
 No.
 
 The lab does not exist to modify or extend the upstream repository. It consumes the upstream public interface while preserving the upstream implementation.
+
+### Why is a copy of the Continuity Core bundled in this repository?
+
+The lab uses a fixed upstream snapshot so that an experimental run can be reproduced against an identified executable baseline.
+
+The bundled copy is a reference dependency, not a fork and not a new source of Arcstone authority.
+
+Its source is not modified by the lab. Reference integrity information is recorded separately so changes to the experimental host can be distinguished from changes to the upstream executable surface.
 
 ### What Continuity Core baseline does the lab target?
 
@@ -80,7 +88,7 @@ No.
 
 Agents are one possible external producer class. The repository is deliberately producer-agnostic.
 
-An LLM or autonomous agent can later provide experimental inputs without changing the identity of the repository.
+An LLM or autonomous agent can provide experimental inputs without changing the identity of the repository.
 
 ### Is this an MCP server?
 
@@ -96,9 +104,13 @@ The lab exercises a public Path A predicate. It does not claim to implement the 
 
 ### Does PASS authorize a real-world action?
 
-Not in this repository.
+No.
 
-A Path A predicate result is an experimental output here. The lab does not attach `PASS` to irreversible real-world execution. Operational authorization belongs elsewhere.
+In this repository, a Path A predicate result is an experimental observation only.
+
+`PASS` does not constitute an authorization certificate, capability grant, actuator permission, or permission to perform an irreversible side effect.
+
+Operational execution authorization belongs outside this lab.
 
 ### Why are elapsed values controlled?
 
@@ -143,23 +155,60 @@ The experiment therefore tests the integration boundary, not whether a determini
 
 ### What is Evidence Run 001?
 
-Evidence Run 001 is the first complete offline verification run.
+Evidence Run 001 is the frozen baseline verification run for version 0.1.0.
 
-It should include upstream reference tests, bridge compilation, lab contract tests, the boundary matrix, provenance experiment, random-byte replay, environment information, and reproducible evidence records.
+It includes:
 
-No API key is required.
+- upstream Continuity Core tests;
+- bridge compilation;
+- lab contract tests;
+- the controlled boundary matrix;
+- producer-provenance invariance testing;
+- random-byte deterministic replay;
+- environment information; and
+- SHA-256-bound evidence records.
 
-### When is a live LLM added?
+The preserved evidence is available under:
 
-Only after Evidence Run 001 passes.
+```text
+evidence/run-001/
+```
 
-The live model should initially remain external to the lab and provide bytes through the same ingress surface used by other producers. The core should not change because the producer happens to be an LLM.
+Run 001 passed locally and was independently reproduced by the repository's GitHub Actions verification workflow.
 
-### What would a successful live experiment establish?
+The baseline source state is identified by Git commit:
+
+```text
+49ce5bf
+```
+
+No API key or live model was required.
+
+### Does evidence from this lab change the Continuity Core?
+
+No.
+
+Authority flows from the upstream architecture and Continuity Core into this downstream experiment.
+
+Experimental evidence may flow back upstream for later evaluation, but it does not automatically modify, reinterpret, or supersede upstream semantics.
+
+A successful experiment is evidence about the tested boundary, not new architectural authority.
+
+### When is a live nondeterministic producer added?
+
+Only after the frozen deterministic baseline has passed.
+
+That prerequisite is now satisfied by Evidence Run 001.
+
+The first live producer experiment should remain external to the lab and provide bytes through the same ingress surface used by other producers. The Continuity Core must not change because the producer happens to be an LLM, agent, API, or other nondeterministic system.
+
+Any live-producer evidence should be preserved as a new evidence run rather than modifying Run 001.
+
+### What would a successful live-producer experiment establish?
 
 At most, it would add evidence that the same ingress mechanism can accept output originating from a nondeterministic external producer while preserving the existing Path A evaluation contract.
 
-It would not by itself establish AI safety, alignment, production authorization, or general agent governance.
+It would not by itself establish AI safety, alignment, production authorization, autonomous-agent governance, cross-framework interoperability, or validation of the broader Arcstone architecture.
 
 ### What happens if the experiment requires changing the Continuity Core?
 
@@ -180,15 +229,19 @@ ingress-lab     mcp-sidecar
 experiment      implementation
 ```
 
-The Ingress Lab investigates producer-to-Path-A correspondence. The MCP Sidecar, if developed, addresses operational execution-boundary problems.
+The Ingress Lab investigates producer-to-Path-A correspondence.
 
-Neither should depend architecturally on the other merely for convenience.
+The MCP Sidecar, if developed, addresses operational execution-boundary problems.
+
+Neither should depend architecturally on the other merely for convenience, and mechanisms belonging to one downstream repository should not be imported into the other without independent justification.
 
 ### Could this lab eventually become something permanent?
 
 Possibly, but not yet.
 
-If repeated experiments across heterogeneous producers produce useful, reproducible evidence, the work could justify a stable downstream reference adapter. That decision should follow evidence rather than precede it.
+If repeated experiments across heterogeneous producers produce useful, reproducible evidence, the work could justify a stable downstream reference adapter.
+
+That decision should follow evidence rather than precede it.
 
 ### What is the governing development principle?
 
