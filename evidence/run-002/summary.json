@@ -1,0 +1,27 @@
+{
+  "schema": "arcstone-path-a-ingress-lab/live-producer-run-v1",
+  "runId": "run-002",
+  "experimentStatus": "PASS",
+  "completedAt": "2026-09-13T01:17:10.899Z",
+  "producer": "live-chatgpt-manual-export",
+  "sourceFileName": "run-002-producer-output.txt",
+  "payloadBytes": 235,
+  "payloadSha256": "f7ca81d29690d02ec772920409fdcaaddc5ce1b7ceb6b28bae7d7f40e44c883e",
+  "controlledElapsedUs": 5000,
+  "elapsedSemantics": "controlled-explicit-fixture-only",
+  "initialPathAResult": {
+    "signal": "PASS",
+    "code": 0,
+    "payloadBytes": 235,
+    "elapsedUs": 5000
+  },
+  "replayPathAResult": {
+    "signal": "PASS",
+    "code": 0,
+    "payloadBytes": 235,
+    "elapsedUs": 5000
+  },
+  "identicalExplicitInputs": true,
+  "identicalResults": true,
+  "claimBoundary": "External producer identity is metadata only; the preserved raw bytes and controlled elapsed value are the only experiment inputs passed to the existing Path A evaluation boundary."
+}
