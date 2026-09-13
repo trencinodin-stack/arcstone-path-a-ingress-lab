@@ -1,0 +1,12 @@
+run_id=run-002
+experiment_status=PASS
+recorded_at=2026-09-13T01:17:10.899Z
+node=v24.15.0
+platform=win32
+arch=x64
+producer=live-chatgpt-manual-export
+payload_bytes=235
+payload_sha256=f7ca81d29690d02ec772920409fdcaaddc5ce1b7ceb6b28bae7d7f40e44c883e
+controlled_elapsed_us=5000
+elapsed_semantics=controlled-explicit-fixture-only
+wall_clock_latency_used=false
