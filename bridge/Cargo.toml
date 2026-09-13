@@ -1,0 +1,8 @@
+[package]
+name = "arcstone-path-a-bridge"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+arcstone-continuity-core = { path = "../reference/arcstone-continuity-core" }

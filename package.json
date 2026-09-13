@@ -1,0 +1,21 @@
+{
+  "name": "arcstone-path-a-ingress-lab",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Disposable downstream experiment for producer-independent invocation of the unchanged Arcstone Continuity Core Path A predicate.",
+  "type": "module",
+  "scripts": {
+    "bridge:build": "cargo build --manifest-path bridge/Cargo.toml",
+    "core:test": "cd reference/arcstone-continuity-core && cargo test --lib && npm install && npm run test:unit -- tests/validateLifecycleInvariants.ts && npm run test:unit -- tests/clockDriftLattice.test.ts",
+    "test:js": "node --test test/*.test.mjs",
+    "test": "npm run bridge:build && npm run test:js",
+    "matrix": "npm run bridge:build && node src/run-matrix.mjs",
+    "demo:provenance": "npm run bridge:build && node src/provenance-demo.mjs",
+    "demo:fuzz": "npm run bridge:build && node src/fuzz-demo.mjs",
+    "eval:stdin": "npm run bridge:build && node src/stdin-once.mjs",
+    "verify": "npm run core:test && npm test && npm run matrix && npm run demo:provenance && npm run demo:fuzz"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
