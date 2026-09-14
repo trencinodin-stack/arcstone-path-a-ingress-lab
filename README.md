@@ -5,6 +5,8 @@
 **Upstream reference:** `arcstone-continuity-core` v1.3.1 (`v1.3.1-exec`)  
 **Purpose:** Test producer-independent invocation of the existing Rust Path A predicate without modifying the frozen Continuity Core or introducing producer-specific semantics.
 
+This repository occupies the **middle experimental position** in the public Arcstone research progression. It tests external-producer ingress and replay against the unchanged Continuity Core predicate. Its results do not confer execution authority.
+
 ## Overview
 
 Arcstone Path A Ingress Lab is a downstream experimental reference environment for testing how arbitrary external producers can be reduced to the explicit inputs already accepted by the public Arcstone Continuity Core Path A predicate.
@@ -16,6 +18,53 @@ It asks one narrow question:
 > Does the unchanged deterministic Path A predicate preserve its result when the origin of the input bytes changes, provided the explicit inputs are identical?
 
 The experiment treats producer identity as provenance metadata only. It is not an input to the Rust predicate.
+
+## Public research relationship
+
+The public Arcstone research surface consists of three independently scoped repositories:
+
+**[`arcstone-continuity-core`](https://github.com/trencinodin-stack/arcstone-continuity-core)**  
+→ establishes the frozen deterministic Path A reference surface.
+
+**`arcstone-path-a-ingress-lab` — this repository**  
+→ tests whether output from an external, potentially nondeterministic producer can be preserved as raw bytes, evaluated through the unchanged Path A predicate using explicit controlled inputs, and exactly replayed.
+
+**[`arcstone-mcp-sidecar`](https://github.com/trencinodin-stack/arcstone-mcp-sidecar) — Arcstone Execution Boundary**  
+→ independently tests whether an untrusted or nondeterministic producer can cause a protected side effect only when a separate boundary-controlled authorization condition has been satisfied.
+
+The repository and authority topology is:
+
+```text
+                 Arcstone Continuity Core
+                        FROZEN
+                       /      \
+                      /        \
+                     ▼          ▼
+       Path A Ingress Lab    Execution Boundary
+            THIS REPO       SIBLING DOWNSTREAM
+```
+
+The Path A Ingress Lab and Execution Boundary are sibling downstream investigations of the frozen Arcstone Continuity Core.
+
+The three repositories also form a conceptual research and evidence progression:
+
+```text
+deterministic evaluation
+        ↓
+external-producer ingress and replay
+        ↓
+independent authorization and controlled actuation
+```
+
+This progression is **not a mandatory runtime pipeline**.
+
+The Execution Boundary does not derive authorization from this lab, and a favorable Path A result does not itself authorize actuation.
+
+The separation is intentional:
+
+**deterministic evaluation ≠ authorization ≠ actuation ≠ observed effect**
+
+Each repository is independently scoped, testable, and reproducible within its stated evidence boundary.
 
 ## Current evidence
 
@@ -39,13 +88,33 @@ evidence/run-001/
 
 with an environment record, JSONL evidence, and SHA-256 manifest.
 
-The verified baseline is associated with Git commit:
+The verified Run 001 baseline is associated with Git commit:
 
 ```text
 49ce5bf
 ```
 
 GitHub Actions independently reproduced the verification workflow for that baseline.
+
+### Evidence Run 002
+
+Evidence Run 002 extended the experiment to output from a live external nondeterministic producer.
+
+The producer remained outside the Continuity Core. Its serialized output was preserved as raw bytes and evaluated through the unchanged Path A predicate using an explicitly controlled `elapsed` fixture.
+
+For the preserved Run 002 case:
+
+- external producer output was preserved as raw bytes;
+- the preserved payload was 235 bytes;
+- controlled `elapsed` was 5,000 µs;
+- the unchanged local Path A predicate returned `PASS`; and
+- exact replay of the preserved explicit inputs returned the same result.
+
+Run 002 is complete and frozen.
+
+Its bounded result supports only the claim that serialized output from a live external nondeterministic producer can be preserved, evaluated through the unchanged Path A predicate using controlled explicit inputs, and exactly replayed with the same result.
+
+Run 002 does **not** establish model alignment, AI safety, production authorization, real network or inference latency semantics, a complete execution membrane, or framework-wide interoperability.
 
 ## Repository relationship
 
@@ -72,14 +141,17 @@ Authority does not flow from this lab back into the Continuity Core.
 
 Evidence may inform later investigation, but experimental results in this repository do not modify or redefine upstream semantics.
 
+The Arcstone Execution Boundary is a separate sibling downstream investigation. This lab does not issue, imply, or confer authorization for that repository.
+
 ## Repository guidance
 
 - [`AGENTS.md`](AGENTS.md) — operating boundaries for coding agents and machine-assisted development.
 - [`FAQ.md`](FAQ.md) — human-facing conceptual and architectural boundaries.
 - [`STATUS.md`](STATUS.md) — current experimental status.
 - [`BUILD-REPORT.md`](BUILD-REPORT.md) — build and verification notes.
-- [`NEXT-LIVE-PRODUCER.md`](NEXT-LIVE-PRODUCER.md) — constraints for the first live external-producer experiment.
-- [`evidence/run-001/`](evidence/run-001/) — preserved baseline evidence.
+- [`NEXT-LIVE-PRODUCER.md`](NEXT-LIVE-PRODUCER.md) — preserved prospective constraints used for the live external-producer experiment.
+- [`evidence/run-001/`](evidence/run-001/) — preserved deterministic baseline evidence.
+- [`evidence/run-002/`](evidence/run-002/) — preserved live external-producer evidence.
 
 ## Upstream executable surface
 
@@ -112,7 +184,7 @@ Version 0.1 intentionally fixes the experiment to the following rules:
 
 ```text
 external producer
-(static / human / script / fuzz / future LLM)
+(static / human / script / fuzz / live nondeterministic producer)
               |
               | raw bytes
               v
@@ -188,7 +260,7 @@ The verification sequence performs:
 5. the producer-provenance invariance demonstration; and
 6. random-byte deterministic replay using controlled elapsed fixtures.
 
-No LLM or API key is required.
+No LLM or API key is required for the deterministic verification suite.
 
 ## Individual experiments
 
@@ -252,13 +324,15 @@ printf 'hello' | npm run eval:stdin -- --elapsed-us=5000
 
 The producer remains outside the Continuity Core. The adapter supplies only the serialized bytes and an explicitly controlled elapsed fixture to the existing predicate.
 
-This is the intended connection point for later external producer experiments, including nondeterministic model output.
+This boundary was used as the conceptual connection point for the completed live external-producer experiment preserved as Run 002.
 
 ## Evidence interpretation
 
 A successful experiment permits only the narrow conclusion supported by its observations:
 
 > For tested cases, the unchanged public Rust Path A predicate returns the same result for the same explicit payload bytes and controlled elapsed input regardless of external provenance label or producer mechanism.
+
+Run 002 additionally demonstrates, within its preserved bounded case, that serialized output from a live external nondeterministic producer can be preserved as raw bytes, evaluated through the unchanged predicate using a controlled explicit elapsed fixture, and exactly replayed with the same result.
 
 This evidence does not establish:
 
@@ -285,15 +359,17 @@ Stop rather than extend the experiment if the next step requires:
 - treating a `PASS` result as authorization for a real-world side effect; or
 - turning this repository into an agent framework, execution service, or production membrane.
 
-## Next experimental step
+## Experimental status
 
-After the frozen Run 001 baseline, the next admissible experiment is a live nondeterministic external producer.
+Run 001 and Run 002 are complete and frozen.
 
-The producer should remain outside the lab and emit only bytes into the existing stdin boundary. The experiment must continue to use controlled explicit `elapsed` fixtures.
+Run 001 establishes the deterministic local baseline and replay behavior.
 
-A live-producer experiment should be preserved as a new evidence run and must not rewrite Run 001 or require modification of the Continuity Core.
+Run 002 preserves the live external-producer case and its exact replay.
 
-See [`NEXT-LIVE-PRODUCER.md`](NEXT-LIVE-PRODUCER.md).
+No additional experiment is required to support the current bounded claims of version 0.1.0.
+
+Future work, if any, requires a separately admitted research question and must not rewrite the frozen Run 001 or Run 002 evidence, modify the Continuity Core, or reinterpret a Path A result as execution authorization.
 
 ---
 
