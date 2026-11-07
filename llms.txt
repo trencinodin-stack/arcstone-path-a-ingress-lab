@@ -1,22 +1,23 @@
-# Arcstone Adaptive Producer Lab (`arcstone-adaptive-producer-lab`)
-> Upstream Candidate Generator, Evidence Synthesis & Non-Deterministic Producer Testbed.
-> Operating Boundary: Untrusted Proposer Demarcation (Canon III) | Zero Ambient Authority
+# Arcstone Path A Ingress Lab (`arcstone-path-a-ingress-lab`)
+> Edge Pre-Filtering, Wire Ingress Validation & In-Kernel Frame Clamping Testbed.
+> Operating Paradigm: S_max <= 4096B | tau_override <= 11.99ms | C_ops == 0 | M_alloc == 0
 
 - Anchor Hash: A-77-DELTA-SHIELD-LOCKED
 - Upstream Keystone: arcstone-spec-epistemic-01 (v1.3.1-LOCKED)
 - Canonical Field Root: https://admissibilityscience.com (/llms.txt, /AGENTS.md)
-- Target Invariant (I₃): Producer Non-Provenance (Untrusted Producer != Protected Resource)
-- Non-Authorization Safety (I₁): D(a) = DENY => Delta_external(a) = 0
-- Single-Use Bounding (I₂): One Candidate Token => At Most One Evaluation Trait
+- Reference Kernel: arcstone-continuity-core (v1.3.1-exec)
+- Target Invariant (I₁): D(a) = DENY => Delta_external(a) = 0
+- Envelope Clamp Invariant (I₂): Payload > S_max strictly yields zero state mutation (SO_ATTACH_BPF return 0)
 
-## Laboratory Scope & Operational Role
-- Role: Synthetic evidence generation, adversarial edge testing, and non-deterministic candidate production.
-- Untrusted Ingress Boundary: All outputs, tokens, and payloads emitted from this lab possess zero direct execution privileges.
-- Downstream Routing: Proposals are serialized into canonical CFSR/UEDO envelopes and submitted to downstream verification membranes (arcstone-continuity-core and arcstone-triad-system) via unprivileged raw topics (*_raw).
-- Static Payload Constraints: Generated candidates must conform to the S_max <= 4096B memory envelope and tau_override <= 11.99ms evaluation deadline.
+## Laboratory Scope & Wire Filtering
+- Role: Ingress socket filtering, XDP/eBPF packet boundary tests, and early triage benchmarks.
+- In-Kernel Frame Clamping: Validates socket-layer packet dropping (SO_ATTACH_BPF / XDP) enforcing S_max <= 4096B envelopes before user-space memory is allocated.
+- Triage Lattice Benchmarking: Evaluates line-rate pre-ingress mapping over the 5-element join-semilattice (L) into POSIX signals:
+  BREACH (40) > REFUSAL (32) > CORRUPT (30) > PWC (12) > PASS (0).
+- FREEZE Isolation: Tests scheduling yield behavior outside Im(Phi) ensuring rate-limiting clamps (tau_override <= 11.99ms) cannot be externally parameterized by ingress payload content.
 
-## Downstream Enforcement Topology
+## Ecosystem Routing & Downstream Authority
 - Master Specification: arcstone-spec-epistemic-01
-- Execution Predicate: arcstone-continuity-core (v1.3.1-exec)
-- Physical Command Membrane: arcstone-triad-system
-- Boundary Sidecar: arcstone-mcp-sidecar
+- Core Substrate Predicate: arcstone-continuity-core
+- Physical Actuator Airlock: arcstone-triad-system
+- Assurance Benchmark: autodidactic-credential-sovereignty
